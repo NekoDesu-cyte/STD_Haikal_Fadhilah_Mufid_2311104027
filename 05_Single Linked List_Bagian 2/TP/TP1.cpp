@@ -7,7 +7,7 @@ struct Node {
     Node* next;
 };
 
-void insert(Node*& head, int value) {
+void insert_2311104027(Node*& head, int value) {
     Node* newNode = new Node();
     newNode->data = value;
     newNode->next = nullptr;
@@ -46,7 +46,7 @@ int main () {
     cout << "Enter 6 integer values for the list : " << endl;
     for (int i = 0; i < 6; i++) {
         cin >> value;
-        insert(head, value);
+        insert_2311104027(head, value);
     }
     cout << "enter the element to search : ";
     cin >> value;
