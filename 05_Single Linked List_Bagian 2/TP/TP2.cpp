@@ -3,12 +3,12 @@
 using namespace std;
 
 struct Node {
-    int data;
+    int data; 
     Node* next;
 
 };
 
-void insert(Node*& head, int value) {
+void insert_2311104027(Node*& head, int value) {
     Node* newNode = new Node();
     newNode->data = value;
     newNode->next = nullptr;
@@ -66,7 +66,7 @@ int main () {
     cout << "enter 5 integer values for the list : " << endl;
     for (int i = 0; i < 5; i++) {
         cin >> value;
-        insert (head, value);
+        insert_2311104027 (head, value);
     }
 
     cout << "Unsorted List : ";
