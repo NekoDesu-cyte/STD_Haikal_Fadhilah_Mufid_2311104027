@@ -11,22 +11,25 @@ struct Queue {
     Node* front;
     Node* back;
 };
+
 void createQueue(Queue &Q) {
     Q.front = nullptr;
     Q.back = nullptr;
 }
+
 bool isEmptyQueue(Queue &Q) {
     return Q.front == nullptr;
 }
+
 void enqueue(Queue &Q, int data) {
     Node* newNode = new Node;
     newNode->data = data;
     newNode->next = nullptr;
 
-    if(isEmptyQueue(Q)) {
+    if (isEmptyQueue(Q)) {
         Q.front = newNode;
-        Q.back = newNode; 
-    }else {
+        Q.back = newNode;
+    } else {
         Q.back->next = newNode;
         Q.back = newNode;
     }
@@ -34,12 +37,12 @@ void enqueue(Queue &Q, int data) {
 
 void dequeue(Queue &Q) {
     if (isEmptyQueue(Q)) {
-        cout << "Antrian Kosong" << endl;
+        cout << "Antrian kosong!" << endl;
     } else {
         Node* temp = Q.front;
         Q.front = Q.front->next;
         delete temp;
-        if(Q.front == nullptr) {
+        if (Q.front == nullptr) {
             Q.back = nullptr;
         }
     }

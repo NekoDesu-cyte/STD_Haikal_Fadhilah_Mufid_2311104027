@@ -1,81 +1,80 @@
 #include <iostream>
 #include <string>
-
 using namespace std;
 
 struct Mahasiswa {
-    string nama;
-    int nim;
+    string namaMahasiswa;
+    int nimMahasiswa;
     Mahasiswa* next;
 };
 
 struct Queue {
     Mahasiswa* front;
-    Mahasiswa* back;
+    Mahasiswa* rear;
 };
 
-void createQueue(Queue &Q) {
-    Q.front = nullptr;
-    Q.back = nullptr;
+void initializeQueue(Queue &queue) {
+    queue.front = nullptr;
+    queue.rear = nullptr;
 }
 
-bool isEmptyQueue(Queue &Q) {
-    return Q.front == nullptr;
+bool isQueueEmpty(Queue &queue) {
+    return queue.front == nullptr;
 }
 
-void enqueue(Queue &Q, string nama, int nim) {
-    Mahasiswa* newNode = new Mahasiswa;
-    newNode->nama = nama;
-    newNode->nim = nim;
-    newNode->next = nullptr;
+void addStudent(Queue &queue, string nama, int nim) {
+    Mahasiswa* newStudent = new Mahasiswa;
+    newStudent->namaMahasiswa = nama;
+    newStudent->nimMahasiswa = nim;
+    newStudent->next = nullptr;
 
-    if (isEmptyQueue(Q)) {
-        Q.front = newNode;
-        Q.back = newNode;
+    if (isQueueEmpty(queue)) {
+        queue.front = newStudent;
+        queue.rear = newStudent;
     } else {
-        Q.back->next = newNode;
-        Q.back = newNode;
+        queue.rear->next = newStudent;
+        queue.rear = newStudent;
     }
 }
 
-void dequeue(Queue &Q) {
-    if (isEmptyQueue(Q)) {
-        cout << "Antrian kosong!" << endl;
+void removeStudent(Queue &queue) {
+    if (isQueueEmpty(queue)) {
+        cout << "Queue is empty!" << endl;
     } else {
-        Mahasiswa* temp = Q.front;
-        cout << "Mahasiswa " << temp->nama << " dengan NIM " << temp->nim << " dikeluarkan dari antrian." << endl;
-        Q.front = Q.front->next;
+        Mahasiswa* temp = queue.front;
+        cout << "Mahasiswa " << temp->namaMahasiswa << " dengan NIM " << temp->nimMahasiswa << " dikeluarkan dari antrian." << endl;
+        queue.front = queue.front->next;
         delete temp;
-        if (Q.front == nullptr) {
-            Q.back = nullptr;
+        if (queue.front == nullptr) {
+            queue.rear = nullptr;
         }
     }
 }
 
-void viewQueue(Queue &Q) {
-    if (isEmptyQueue(Q)) {
-        cout << "Antrian kosong!" << endl;
+void displayQueue(Queue &queue) {
+    if (isQueueEmpty(queue)) {
+        cout << "Queue is empty!" << endl;
     } else {
-        Mahasiswa* temp = Q.front;
+        Mahasiswa* temp = queue.front;
         cout << "Data antrian mahasiswa:" << endl;
         while (temp != nullptr) {
-            cout << "Nama: " << temp->nama << ", NIM: " << temp->nim << endl;
+            cout << "Nama: " << temp->namaMahasiswa << ", NIM: " << temp->nimMahasiswa << endl;
             temp = temp->next;
         }
     }
 }
 
 int main() {
-    Queue Q;
-    createQueue(Q);
+    Queue queue;
+    initializeQueue(queue);
 
-    enqueue(Q, "Andi", 12345);
-    enqueue(Q, "Budi", 67890);
+    addStudent(queue, "Andi", 12345);
+    addStudent(queue, "Budi", 67890);
 
-    viewQueue(Q);
+    displayQueue(queue);
 
-    dequeue(Q);
-    viewQueue(Q);
+    removeStudent(queue);
+    displayQueue(queue);
 
     return 0;
 }

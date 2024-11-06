@@ -10,17 +10,17 @@ struct Mahasiswa {
 };
 
 struct Queue {
-    Mahasiswa* front;
-    Mahasiswa* back;
+    Mahasiswa* head;
+    Mahasiswa* tail;
 };
 
 void createQueue(Queue &Q) {
-    Q.front = nullptr;
-    Q.back = nullptr;
+    Q.head = nullptr;
+    Q.tail = nullptr;
 }
 
 bool isEmptyQueue(Queue &Q) {
-    return Q.front == nullptr;
+    return Q.head == nullptr;
 }
 
 void enqueue(Queue &Q, string nama, int nim) {
@@ -30,22 +30,22 @@ void enqueue(Queue &Q, string nama, int nim) {
     newNode->next = nullptr;
 
     if (isEmptyQueue(Q)) {
-        Q.front = newNode;
-        Q.back = newNode;
+        Q.head = newNode;
+        Q.tail = newNode;
     } else {
         // Sisipkan berdasarkan prioritas NIM
-        if (nim < Q.front->nim) {
-            newNode->next = Q.front;
-            Q.front = newNode;
+        if (nim < Q.head->nim) {
+            newNode->next = Q.head;
+            Q.head = newNode;
         } else {
-            Mahasiswa* temp = Q.front;
+            Mahasiswa* temp = Q.head;
             while (temp->next != nullptr && temp->next->nim < nim) {
                 temp = temp->next;
             }
             newNode->next = temp->next;
             temp->next = newNode;
             if (newNode->next == nullptr) {
-                Q.back = newNode;
+                Q.tail = newNode;
             }
         }
     }
@@ -56,12 +56,12 @@ void dequeue(Queue &Q) {
     if (isEmptyQueue(Q)) {
         cout << "Antrian kosong!" << endl;
     } else {
-        Mahasiswa* temp = Q.front;
+        Mahasiswa* temp = Q.head;
         cout << "Mahasiswa " << temp->nama << " dengan NIM " << temp->nim << " dikeluarkan dari antrian." << endl;
-        Q.front = Q.front->next;
+        Q.head = Q.head->next;
         delete temp;
-        if (Q.front == nullptr) {
-            Q.back = nullptr;
+        if (Q.head == nullptr) {
+            Q.tail = nullptr;
         }
     }
 }
@@ -70,7 +70,7 @@ void viewQueue(Queue &Q) {
     if (isEmptyQueue(Q)) {
         cout << "Antrian kosong!" << endl;
     } else {
-        Mahasiswa* temp = Q.front;
+        Mahasiswa* temp = Q.head;
         cout << "Data antrian mahasiswa (prioritas NIM terkecil):" << endl;
         while (temp != nullptr) {
             cout << "Nama: " << temp->nama << ", NIM: " << temp->nim << endl;
